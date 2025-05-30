@@ -24,7 +24,3 @@ def min_palindrome_partition(s: str) -> int:
                 if is_pal[j][i]:
                     dp[i] = min(dp[i], dp[j-1] + 1)
     return dp[n-1]
-
-print(min_palindrome_partition("AR"))            # 2
-print(min_palindrome_partition("ARA"))           # 1
-print(min_palindrome_partition("ARACALACANA"))   # 3
