@@ -1,4 +1,4 @@
-#Dependencias
+# Dependencias
 
 La correcta ejecicion del programa, enfocado en la funcion WAN_network(), depende de la libreria de python NetworkX (https://networkx.org/documentation/stable/install.html), para el uso de grafos dirigidos y el algoritmo Edmonds-Karp.
 
@@ -16,7 +16,9 @@ En caso de un error: externally-managed-environment, se debe usar el comando:
 sudo apt install python3-networkx
 ```
 
-#WAN_network()
+# Ejecucion 
+
+## WAN_network()
 
 El programa se ejecuta llamando a la funcion WAN_network(D, b, k, d), donde D es la distancia maxima permitida para ser un backup (de D para abajo), b es el numero maximo de antenas a las que puede respaldar una sola antena, k es el numero  minimo de antenas por backup, y d es una matriz que describe en d[i][j] la distancia de la antena i a la j. 
 
