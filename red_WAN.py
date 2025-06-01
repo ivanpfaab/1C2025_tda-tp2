@@ -49,7 +49,7 @@ def create_graph(distancia_max, limite_antenas, antenas_por_conjunto, d):
 def main():
     #D, b, k, d
     #Distancia max, limite antenas, minimo antenas
-    WAN_network(5, 2, 1, [
+    WAN_network(5, 2, 3, [
         [1, 2, 3, 4, 5],
         [1, 2, 3, 4, 5],
         [1, 2, 3, 4, 1], 
