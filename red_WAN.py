@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def WAN_network(D, b, k, d):
 
-    if not check_d(d):
+    if not is_square(d):
         print("Matriz no cuadrada")
         return 
 
@@ -26,7 +26,7 @@ def WAN_network(D, b, k, d):
     
     return residual_ek
 
-def check_d(d):
+def is_square(d):
     rows = len(d)
     for row in d:
         if len(row) != rows:
@@ -99,4 +99,13 @@ def main():
         [5, 5, 5, 4, 5]
     ])
 
+    print("Cambio")
+
+    WAN_network(5, 3, 2, [
+        [0, 2, 2, 2, 2],
+        [2, 0, 1, 3, 4],
+        [2, 1, 0, 4, 5],
+        [2, 3, 4, 0, 4],
+        [2, 3, 5, 4, 0]
+    ])
 main()
