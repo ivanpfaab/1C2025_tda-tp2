@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+import scipy as sp
+import numpy as np
 from red_WAN import WAN_network
 from random import randint
 import time
@@ -18,11 +20,11 @@ def crear_problema(tamanio):
 def medir_tiempos():
     tiempos = []
     resultados = []
-    for n in list(range(30, 150)):
+    for n in list(range(30, 200)):
         D, b, k, d = crear_problema(n)
         tiempo = []
         res_temps = []
-        for i in range(5):
+        for i in range(4):
             t0 = time.time()
             res_temps.append(WAN_network(D,b,k,d))
             tf = time.time()
@@ -37,7 +39,7 @@ def medir_tiempos():
 def graficar_tiempos():
 
     tiempos, resultados = medir_tiempos()
-    tamanios = list(range(30, 150))
+    tamanios = list(range(30, 200))
 
     print(f"len de tiempos, resultados y tamanios es: {len(tiempos), len(resultados), len(tamanios)}")
     # Separar puntos por color
@@ -65,18 +67,31 @@ def graficar_tiempos():
     plt.legend()
     plt.tight_layout()
     plt.show()
+    otro_grafico(tiempos)
 
-    # tiempos = medir_tiempos()
-    # tamanios = list(range(30, 150))
-    # 
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(tamanios, tiempos, marker='o', linestyle='-', color='blue', label='Tiempo promedio')
-    # plt.title('Tiempo promedio de ejecución vs Tamaño del problema (n)')
-    # plt.xlabel('Tamaño del problema (n)')
-    # plt.ylabel('Tiempo promedio (segundos)')
-    # plt.grid(True)
-    # plt.legend()
-    # plt.tight_layout()
-    # plt.show()
+def otro_grafico(tiempos):
+    tamanios = np.arange(0, 170)
 
+    plt.figure(figsize=(10, 6))
+    plt.plot(tamanios, tiempos, marker='o', linestyle='-', color='blue', label='Tiempo promedio')
+    plt.title('Tiempo promedio de ejecución vs Tamaño del problema (n)')
+    plt.xlabel('Tamaño del problema (n)')
+    plt.ylabel('Tiempo promedio (segundos)')
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    print(len(tamanios), len(tiempos))
+
+    f = lambda x, c1, c2, c3, c4, c5, c6: c1 * x**5 + c2 * x**4 + c3 * x**3 + c4 * x**2 + c5 * x + c6
+
+    c, pcov = sp.optimize.curve_fit(f, tamanios, [tiempos[n] for n in tamanios])
+
+    r = np.sum((f(tamanios, *c) - [tiempos[n] for n  in tamanios]) ** 2)
+    print(f"Error cuadrático total: {r}")
+
+    # Graficar el ajuste
+    plt.plot(tamanios, [f(n, *c) for n in tamanios], "r--", label="Ajuste (Cuadrático)")
+
+    plt.show()
+    
 graficar_tiempos()

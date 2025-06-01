@@ -18,7 +18,7 @@ def WAN_network(D, b, k, d):
     #Flujo maximo y un diccionario con los caminos resultantes.
     flujo_maximo, residual_ek = nx.maximum_flow(network, 'S', 'T', 'capacity', edmonds_karp)
 
-    if flujo_maximo < len(d[0]) * antenas_por_conjunto:
+    if flujo_maximo < len(d) * k:
         #print("Numero minimo de backups inalcanzable")
         return 0
     else:
@@ -41,7 +41,7 @@ def print_connections(residual_ek):
             if flow and u != 'S' and v != 'T':
                 print(f"{u} → {v}: {flow}, {u} es backup de {v}")
 
-def create_graph(distancia_max, limite_antenas, antenas_por_conjunto, d):
+def create_graph(D, b, k, d):
     newGraph = nx.DiGraph()
 
     newGraph.add_node('S')
@@ -55,12 +55,11 @@ def create_graph(distancia_max, limite_antenas, antenas_por_conjunto, d):
 
     for i in range(len(d)):
         for j in range(len(d[i])):
-            if d[i][j] < distancia_max and i != j:
+            if d[i][j] < D and i != j:
                 newGraph.add_edge(f"{i}_IN", f"{j}_OUT", capacity = 1)
 
 
     return newGraph
-
 
 def main():
     #D, b, k, d
@@ -76,4 +75,5 @@ def main():
         [1, 2, 3, 4, 1], 
         [5, 5, 5, 4, 5]
     ])
+
 
