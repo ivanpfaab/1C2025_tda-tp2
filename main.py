@@ -27,13 +27,12 @@ def main():
     with open("Tests/ejercicio3.json", "r") as f:
         datos = json.load(f)
     tests = datos["tests"]
-    i = 0
     for i, test in enumerate(tests):
         D = test["D"]
         b = test["b"]
         k = test["k"]
         d = test["d"]
-        print(f"\nTest {i}\n")
+        print(f"\nTest {i+1}\n")
         print(f"D: {D}, b: {b}, k: {k}")
         WAN_network(D,b,k,d)
 
